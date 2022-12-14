@@ -1,3 +1,20 @@
+"""
+CART
+  Classification And Regression Tree
+  Classification 离散的，无序的
+  Regression 连续的，有序的
+
+  每一次分割的目标都是为了分割的两侧（信息熵Entropy,基尼系数Gini Impurity）的和最小
+
+  修剪：剪掉决策树多余的枝节，减少噪声 max_depth, 
+
+  upgrade:
+  Random Forest：基于决策树展开来的算法
+  Gradient Boosting:
+
+  决策树不依赖欧氏距离，可以不进行特征缩放
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -19,13 +36,16 @@ sc_x = StandardScaler()
 x_tran = sc_x.fit_transform(x_tran)
 x_test = sc_x.transform(x_test)
 
-# Logistic regression fit
-from sklearn.linear_model import LogisticRegression
+# Fitting Decision Tree to the Training Set
+from sklearn.tree import DecisionTreeClassifier
 
-classifier = LogisticRegression(random_state=0)
+classifier = DecisionTreeClassifier(
+    criterion='entropy',
+    max_depth=3,
+    random_state=0)
 classifier.fit(x_tran, y_tran)
 
-# Logistic regression predict test set
+# Decision Tree predict test set
 y_pred = classifier.predict(x_test)
 
 # Making the Confusion Matrix to view the result

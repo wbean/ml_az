@@ -1,3 +1,16 @@
+"""
+Ensemble Learning 集成学习
+采用多个分类器预测，最后再对结果进行组合（投票，平均）
+建立在决策树上
+
+step1: Pick at random K data points from the Training set.
+step2: Build the Decision Tree associated to these K data points.
+step3: Choose the number NTree of trees you want to build and repeat step1 and step2
+step4: For a new data point, make each one of your NTree trees predict the category
+       to which the data point belongs, and assign the new data point to the category
+       that wins the majority vote
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -19,13 +32,18 @@ sc_x = StandardScaler()
 x_tran = sc_x.fit_transform(x_tran)
 x_test = sc_x.transform(x_test)
 
-# Logistic regression fit
-from sklearn.linear_model import LogisticRegression
+# Fitting Random Forest to the training set
+from sklearn.ensemble import RandomForestClassifier
 
-classifier = LogisticRegression(random_state=0)
+classifier = RandomForestClassifier(
+    n_estimators=100,  # 决策树数量
+    criterion='entropy',
+    random_state=0,
+    max_depth=4
+)
 classifier.fit(x_tran, y_tran)
 
-# Logistic regression predict test set
+# Random Forest predict test set
 y_pred = classifier.predict(x_test)
 
 # Making the Confusion Matrix to view the result

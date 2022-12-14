@@ -19,13 +19,13 @@ sc_x = StandardScaler()
 x_tran = sc_x.fit_transform(x_tran)
 x_test = sc_x.transform(x_test)
 
-# Logistic regression fit
-from sklearn.linear_model import LogisticRegression
+# Fitting Naive Bayes to the Training set
+from sklearn.naive_bayes import GaussianNB
 
-classifier = LogisticRegression(random_state=0)
+classifier = GaussianNB()
 classifier.fit(x_tran, y_tran)
 
-# Logistic regression predict test set
+# Naive Bayes predict test set
 y_pred = classifier.predict(x_test)
 
 # Making the Confusion Matrix to view the result
