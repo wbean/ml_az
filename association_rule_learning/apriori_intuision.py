@@ -10,10 +10,13 @@ steps
 3: take all the rules of these subsets having higher confidence than minimum confidence
 4: sort the rules by decreasing lift
 """
+import time
 
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+
+start = time.perf_counter()
 
 
 def get_transaction(values):
@@ -32,4 +35,5 @@ rules = apriori(transactions, min_support=0.003, min_confidence=0.2, min_lift=3,
 
 results = list(rules)
 myResults = [list(x) for x in results]
-myResults[0:5]
+end = time.perf_counter()
+print(end - start)
